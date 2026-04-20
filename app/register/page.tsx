@@ -1,7 +1,9 @@
-// app/Register/page.tsx
+// app/register/page.tsx
 import { registerActions } from "../lib/user/register";
 import UserForm from "../ui/user/UserForm";
 import { createClient } from "@/app/lib/supabase/server";
+
+export const dynamic = "force-dynamic";
 
 export default async function Page() {
     const supabase = await createClient();
