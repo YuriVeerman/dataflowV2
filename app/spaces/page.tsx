@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 
 export default function Home() {
     return (
-        <div className="w-full h-full flex-1">
+        <div className="bg-brand-secondary w-full h-full flex-1">
             spaces home page
         </div>
     );

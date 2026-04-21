@@ -15,12 +15,12 @@ export default function MainSideBar() {
         <aside className="bg-brand-primary flex flex-col h-full">
             <div className="flex-1 *:overflow-y-auto *:no-scrollbar overflow-hidden flex-row flex">
                 <SpacesList />
-                <div className="flex-1 border-l border-amber-400/20">
+                <div className="flex-1 border-l border-brand-tertiary p-1">
                     <SpaceNav />
                 </div>
             </div>
 
-            <div className="bottom-0 border-t border-amber-400/20">
+            <div className="bottom-0 border-t border-brand-tertiary">
                 <UserMenu/>
             </div>
         </aside>

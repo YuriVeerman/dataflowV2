@@ -28,6 +28,7 @@ export const metadata: Metadata = {
 
 import { MenuProvider } from "./context/MenuContext";
 import { ModalProvider } from "./context/ModalContext";
+import { UserProvider } from "./context/UserContext";
 
 /**
  * Root component that provides the HTML structure and wraps children in global providers.
@@ -46,11 +47,13 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex flex-col h-full w-full overflow-hidden">
-        <ModalProvider>
-          <MenuProvider>
-            {children}
-          </MenuProvider>
-        </ModalProvider>
+        <UserProvider>
+          <ModalProvider>
+            <MenuProvider>
+              {children}
+            </MenuProvider>
+          </ModalProvider>
+        </UserProvider>
       </body>
     </html>
   );

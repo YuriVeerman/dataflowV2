@@ -5,28 +5,44 @@
 
 "use client";
 import { useState } from "react";
-import { supabase } from "../../lib/supabase/supabase";
+import { createClient } from "../../lib/supabase/client";
+import { useUser } from "../../context/UserContext";
 import PopUpMenu from "../menu's/PopUpMenu";
 
 /**
  * Renders a form to create a new space in the database.
- * 
+ *
  * @param {Object} props - The component props.
  * @param {Function} props.onClose - Callback to close the modal.
  * @param {Function} props.onSucceed - Callback triggered when the space is successfully created.
  */
 export default function AddSpaceMenu({ onClose, onSucceed }: { onClose: () => void, onSucceed: () => void }) {
     const [name, setName] = useState("");
+    const supabase = createClient();
+    const { user } = useUser();
 
     /**
      * Handles the creation of a new space via Supabase.
      */
     async function handleCreate() {
         if (!name.trim()) return;
-        const { error } = await supabase.from("spaces").insert({ name });
+
+        if (!user) {
+            console.error("User must be logged in to create a space.");
+            return;
+        }
+
+        // Insert the space with the user's ID
+        const { error } = await supabase.from("spaces").insert({
+            name,
+            owner_id: user.id
+        });
+
         if (!error) {
             onSucceed(); // Tell the list: 'Hey, I added a space! Refresh!'
             onClose(); // Close the menu
+        } else {
+            console.error("Error creating space:", error);
         }
     }
 
